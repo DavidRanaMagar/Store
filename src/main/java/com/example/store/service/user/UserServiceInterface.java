@@ -2,8 +2,8 @@ package com.example.store.service.user;
 
 import com.example.store.dto.UserDto;
 import com.example.store.model.User;
-import com.example.store.request.AddUserRequest;
-import com.example.store.request.UserUpdateRequest;
+import com.example.store.request.user.AddUserRequest;
+import com.example.store.request.user.UserUpdateRequest;
 
 import java.util.List;
 

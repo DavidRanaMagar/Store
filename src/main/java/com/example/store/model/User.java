@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
 
@@ -25,13 +27,15 @@ public class User {
     @Column(length = 255, nullable = false)
     private String password;
 
-    @Column(name = "createdAt", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "createdAt", nullable = true, updatable = false)
+    @CreationTimestamp
     private Timestamp createdAt;
 
     @Column(name = "createdBy", nullable = true)
     private Integer createdBy;
 
-    @Column(name = "updatedAt", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    @Column(name = "updatedAt")
+    @UpdateTimestamp
     private Timestamp updatedAt;
 
     @Column(name = "updatedBy", nullable = true)
@@ -41,11 +45,11 @@ public class User {
     @JoinColumn(name = "roleId", referencedColumnName = "roleId", foreignKey = @ForeignKey(name = "users_ibfk_1"))
     private Role role;
 
-    public User(String username, String password, Integer createdBy, Integer updatedBy, Role role) {
+    public User(String username, String password, Integer createdBy, Role role) {
         this.username = username;
         this.password = password;
         this.createdBy = createdBy;
-        this.updatedBy = updatedBy;
+        this.updatedBy = createdBy;
         this.role = role;
     }
 }
